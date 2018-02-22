@@ -5,18 +5,17 @@ public class BinaryTree {
 
     public static void main(String args[]){
         try {
-            int values[] = {1, 2, 3, 4, 6};
 
             BinaryTree tree = new BinaryTree();
-            int looper;
-            for (looper = 0; looper < values.length; looper++) {
-                tree.insert(tree.getRoot(), values[looper]);
-            }
+            tree.builder();
 
+            System.out.println("PRE: ");
             tree.preOrderTraversal();
             System.out.println("*******************");
+            System.out.println("IN: ");
             tree.inOrderTraversal();
             System.out.println("*******************");
+            System.out.println("POST: ");
             tree.postOrderTraversal();
             System.out.println("*******************");
         }catch(Exception e){
@@ -25,20 +24,39 @@ public class BinaryTree {
 
     }
 
-    public void insert(Node start, int value){
+    public void builder(){
+        root = new Node("A");
+        root.setRight(new Node("C"));
+        root.setLeft(new Node("B"));
+        root.getLeft().setLeft(new Node("D"));
+        root.getLeft().setRight(new Node("E"));
+        root.getRight().setLeft(new Node("F"));
+        root.getRight().setRight(new Node("G"));
+    }
+    /*public void insert(Node node, int value){
 
-        if(start==null)
-            start = new Node(value);
-        else{
-            if(start.getValue()>value){
-                insert(start.getLeft(), value);
-            }else{
-                insert(start.getRight(),value);
+        if(value<node.getValue()){
+            if(node.getLeft()==null){
+                node.setLeft(new Node(value));
+
+            }else {
+                insert(node.getLeft(), value);
+            }
+        }else{
+            if(node.getRight()==null){
+                node.setRight(new Node(value));
+            }else {
+                insert(node.getRight(), value);
             }
         }
-    }
+
+    }*/
     public Node getRoot(){
         return(root);
+    }
+
+    public void setRoot(String x){
+        root = new Node(x);
     }
 
     public void preOrderTraversal(){
@@ -57,8 +75,8 @@ public class BinaryTree {
     }
     private void postOrderTraversal(Node node){
         if(node!=null){
-            preOrderTraversal(node.getLeft());
-            preOrderTraversal(node.getRight());
+            postOrderTraversal(node.getLeft());
+            postOrderTraversal(node.getRight());
             System.out.println("|" + node.getValue() + "|");
         }
     }
@@ -68,9 +86,9 @@ public class BinaryTree {
     }
     private void inOrderTraversal(Node node){
         if(node!=null){
-            preOrderTraversal(node.getLeft());
+            inOrderTraversal(node.getLeft());
             System.out.println("|" + node.getValue() + "|");
-            preOrderTraversal(node.getRight());
+            inOrderTraversal(node.getRight());
         }
     }
     public int size(){
@@ -87,16 +105,16 @@ public class BinaryTree {
     }
 
     private class Node{
-        int value;
+        String value;
         Node left;
         Node right;
 
-        Node(int x) {
+        Node(String x) {
             value = x;
             left = null;
             right = null;
         }
-        int getValue(){
+        String getValue(){
             return(value);
         }
         Node getLeft(){
@@ -105,5 +123,8 @@ public class BinaryTree {
         Node getRight(){
             return(right);
         }
+        void setLeft(Node n) {left = n;}
+        void setRight(Node n){right =n;}
+
     }
 }
