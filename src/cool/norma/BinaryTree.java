@@ -18,6 +18,7 @@ public class BinaryTree {
             System.out.println("POST: ");
             tree.postOrderTraversal();
             System.out.println("*******************");
+            System.out.println("nodes: " + tree.countNodes(tree.getRoot()));
         }catch(Exception e){
             e.printStackTrace(System.out);
         }
@@ -102,6 +103,10 @@ public class BinaryTree {
         else{
             return(0);
         }
+    }
+    private int getDepth(){
+        Node r = getRoot();
+        
     }
 
     private class Node{
